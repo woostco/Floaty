@@ -811,7 +811,7 @@ open class Floaty: UIView {
     var horizontalMargin = size;
     var verticalMargin = size + keyboardSize;
     
-    if #available(iOS 11, *), relativeToSafeArea, let safeAreaInsets = UIApplication.shared.delegate?.window??.safeAreaInsets {
+    if #available(iOS 11, *), relativeToSafeArea, let safeAreaInsets = superview?.safeAreaInsets ?? UIApplication.shared.delegate?.window??.safeAreaInsets {
       horizontalMargin += safeAreaInsets.right
       verticalMargin += safeAreaInsets.bottom
     }
@@ -891,8 +891,8 @@ open class Floaty: UIView {
         var horizontalMargin = size;
         var verticalMargin = size;
         if #available(iOS 11, *) {
-            horizontalMargin += safeAreaInsets.right
-            verticalMargin += safeAreaInsets.bottom
+            horizontalMargin += superview?.safeAreaInsets.right ?? safeAreaInsets.right
+            verticalMargin += superview?.safeAreaInsets.bottom ?? safeAreaInsets.bottom
         }
         
       frame.origin.x = ((self.superview!.bounds.size.width - horizontalMargin) - paddingX) + scrollView.contentOffset.x
